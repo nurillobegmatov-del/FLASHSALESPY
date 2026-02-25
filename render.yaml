@@ -1,0 +1,15 @@
+services:
+  - type: worker          # Bot = background worker (HTTP port kerak emas)
+    name: flash-sale-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false       # Render dashboardda qo'lda kiritiladi
+      - key: ADMIN_ID
+        sync: false
+    disk:
+      name: bot-data
+      mountPath: /data    # SQLite fayli shu yerda saqlanadi
+      sizeGB: 1
